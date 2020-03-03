@@ -1,5 +1,7 @@
 # Timbre Inflector
 
+__WORK IN PROGRESS: Not yet ready for use.__
+
 This library is a project inspired by the [Doctrine PHP inflector](https://github.com/doctrine/inflector) to improve string manipulation utility in Golang.
 
 This project strives for stability and robustness so that it can be used at any scale, including large business operations, for the manipulation of arbitrary text.
