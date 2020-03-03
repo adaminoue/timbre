@@ -6,6 +6,8 @@ This library is a project inspired by the [Doctrine PHP inflector](https://githu
 
 This project strives for stability and robustness so that it can be used at any scale, including large business operations, for the manipulation of arbitrary text.
 
+At the moment the project is committed to accurate pluralization / depluralization of all nouns within the 5000 most common English-language words.
+
 ![Image of XKCD #208](https://imgs.xkcd.com/comics/regular_expressions.png)
 
 ### Features
