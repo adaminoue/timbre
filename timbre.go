@@ -6,6 +6,7 @@ import (
 	"unicode"
 )
 
+// TODO: complete this list and implement routines using this function to singularize and pluralize
 // list of all words not to treat ordinarily
 var irregulars = map[string]string {
 	"addendum": "addenda",
@@ -101,23 +102,19 @@ var irregulars = map[string]string {
 	"woman": "women",
 }
 
-//
+// Regex matchers to enable functions that follow
 
-// turns camelCase into snake_case
-// HIGHLY FORGIVING REGEX: ([a-zA-Z0-9]+)
-// This function will NOT split camelCase words correctly. Words need to be
-// separated by whitespace or punctuation. Non-alphanumeric characters ignored.
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 var matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
 
+var matchSnake = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
+
+// Naming convention manipulation functions
 func toSnakeCase(str string) string {
 	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
 	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
 	return strings.ToLower(snake)
 }
-
-// function to turn snake_case into camelCase
-var matchSnake = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
 
 func lowerFirstChar(s string) string {
 	for index, value := range s {
