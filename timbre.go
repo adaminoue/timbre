@@ -13,15 +13,11 @@ var irregulars = map[string]string {
 	"aircraft": "aircraft",
 	"alumna": "alumnae",
 	"alumnus": "alumni",
-	"analysis": "analyses",
 	"antenna": "antennae",
-	"antithesis": "antitheses",
 	"apex": "apexes",
 	"appendix": "appendices",
-	"axis": "axes",
 	"bacillus": "bacilli",
 	"bacterium": "bacteria",
-	"basis": "bases",
 	"beau": "beaus",
 	"bison": "bison",
 	"bureau": "bureaus",
@@ -30,28 +26,24 @@ var irregulars = map[string]string {
 	"child": "children",
 	"codex": "codices",
 	"corpus": "corpora",
-	"crisis": "crises",
-	"criterion": "criteria",
 	"curriculum": "curricula",
 	"datum": "data",
 	"deer": "deer",
-	"diagnosis": "diagnoses",
 	"die": "dice",
 	"dwarf": "dwarves",
 	"elf": "elves",
-	"ellipsis": "ellipses",
 	"erratum": "errata",
+	"fey": "fey",
 	"fez": "fezzes",
 	"fish": "fish",
-	"focus": "focuses",
 	"foot": "feet",
 	"fungus": "fungi",
+	"gas": "gasses",
 	"genus": "genera",
 	"goose": "geese",
 	"graffito": "graffiti",
 	"half": "halves",
 	"hoof": "hooves",
-	"hypothesis": "hypotheses",
 	"index": "indices",
 	"larva": "larvae",
 	"loaf": "loaves",
@@ -64,13 +56,11 @@ var irregulars = map[string]string {
 	"mouse": "mice",
 	"nebula": "nebulae",
 	"nucleus": "nuclei",
-	"oasis": "oases",
 	"offspring": "offspring",
 	"opus": "opera",
 	"ovum": "ova",
 	"ox": "oxen",
-	"parenthesis": "parentheses",
-	"phenomenon": "phenomena",
+	"person": "people",
 	"phylum": "phyla",
 	"quiz": "quizzes",
 	"radius": "radii",
@@ -86,8 +76,6 @@ var irregulars = map[string]string {
 	"stratum": "strata",
 	"swine": "swine",
 	"syllabus": "syllabuses",
-	"synopsis": "synopses",
-	"thesis": "theses",
 	"thief": "thieves",
 	"tooth": "teeth",
 	"trout": "trout",
@@ -102,14 +90,26 @@ var irregulars = map[string]string {
 	"woman": "women",
 }
 
-// Regex matchers to enable functions that follow
+// -----------------------------------
+// ---------- PLURALIZATION ----------
+// -----------------------------------
 
+// REGEX
+var matchForEndingES =     regexp.MustCompile("\b[0-9A-Za-z_]*(ch|sh|o|[sxz])\b") // e.g. bench     -> benches
+var matchForEndingIES =    regexp.MustCompile("\b[0-9A-Za-z_]*[^aeiou](y)\b")     // e.g. city      -> cities
+var matchForEndingIStoES = regexp.MustCompile("\b[0-9A-Za-z_]*(is)\b")            // e.g. analysis  -> analyses
+var matchForEndingONtoA =  regexp.MustCompile("\b[0-9A-Za-z_]*(on)\b")            // e.g. criterion -> criteria
+
+// -----------------------------------
+// -- NAMING CONVENTION MANIPULATION -
+// -----------------------------------
+
+// REGEX
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 var matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
+var matchSnake    = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
 
-var matchSnake = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
-
-// Naming convention manipulation functions
+// FUNC
 func toSnakeCase(str string) string {
 	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
 	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
@@ -131,6 +131,5 @@ func toCamelCase(str string, capFirstLetter bool) string {
 	if !capFirstLetter {
 		return lowerFirstChar(str)
 	}
-
 	return str
 }
