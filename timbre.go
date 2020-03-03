@@ -95,10 +95,10 @@ var irregulars = map[string]string {
 // -----------------------------------
 
 // REGEX
-var matchForEndingES =     regexp.MustCompile("\b[0-9A-Za-z_]*(ch|sh|o|[sxz])\b") // e.g. bench     -> benches
-var matchForEndingIES =    regexp.MustCompile("\b[0-9A-Za-z_]*[^aeiou](y)\b")     // e.g. city      -> cities
+var matchForEndingES     = regexp.MustCompile("\b[0-9A-Za-z_]*(ch|sh|o|[sxz])\b") // e.g. bench     -> benches
+var matchForEndingIES    = regexp.MustCompile("\b[0-9A-Za-z_]*[^aeiou](y)\b")     // e.g. city      -> cities
 var matchForEndingIStoES = regexp.MustCompile("\b[0-9A-Za-z_]*(is)\b")            // e.g. analysis  -> analyses
-var matchForEndingONtoA =  regexp.MustCompile("\b[0-9A-Za-z_]*(on)\b")            // e.g. criterion -> criteria
+var matchForEndingONtoA  = regexp.MustCompile("\b[0-9A-Za-z_]*(on)\b")            // e.g. criterion -> criteria
 
 // -----------------------------------
 // -- NAMING CONVENTION MANIPULATION -
