@@ -6,108 +6,55 @@ import (
 	"unicode"
 )
 
-// TODO: complete this list and implement routines using this function to singularize and pluralize
-// list of all words not to treat ordinarily
-var irregulars = map[string]string {
-	"addendum": "addenda",
-	"aircraft": "aircraft",
-	"alumna": "alumnae",
-	"alumnus": "alumni",
-	"antenna": "antennae",
-	"apex": "apexes",
-	"appendix": "appendices",
-	"bacillus": "bacilli",
-	"bacterium": "bacteria",
-	"beau": "beaus",
-	"bison": "bison",
-	"bureau": "bureaus",
-	"cactus": "cacti",
-	"calf": "calves",
-	"child": "children",
-	"codex": "codices",
-	"corpus": "corpora",
-	"curriculum": "curricula",
-	"datum": "data",
-	"deer": "deer",
-	"die": "dice",
-	"dwarf": "dwarves",
-	"elf": "elves",
-	"erratum": "errata",
-	"fey": "fey",
-	"fez": "fezzes",
-	"fish": "fish",
-	"foot": "feet",
-	"fungus": "fungi",
-	"gas": "gasses",
-	"genus": "genera",
-	"goose": "geese",
-	"graffito": "graffiti",
-	"half": "halves",
-	"hoof": "hooves",
-	"index": "indices",
-	"larva": "larvae",
-	"loaf": "loaves",
-	"locus": "loci",
-	"louse": "lice",
-	"man": "men",
-	"matrix": "matrices",
-	"minutia": "minutiae",
-	"moose": "moose",
-	"mouse": "mice",
-	"nebula": "nebulae",
-	"nucleus": "nuclei",
-	"offspring": "offspring",
-	"opus": "opera",
-	"ovum": "ova",
-	"ox": "oxen",
-	"person": "people",
-	"phylum": "phyla",
-	"quiz": "quizzes",
-	"radius": "radii",
-	"referendum": "referenda",
-	"salmon": "salmon",
-	"scarf": "scarves",
-	"self": "selves",
-	"series": "series",
-	"sheep": "sheep",
-	"shrimp": "shrimp",
-	"species": "species",
-	"stimulus": "stimuli",
-	"stratum": "strata",
-	"swine": "swine",
-	"syllabus": "syllabuses",
-	"thief": "thieves",
-	"tooth": "teeth",
-	"trout": "trout",
-	"tuna": "tuna",
-	"vertebra": "vertebrae",
-	"vertex": "vertices",
-	"vita": "vitae",
-	"vortex": "vortices",
-	"wharf": "wharves",
-	"wife": "wives",
-	"wolf": "wolves",
-	"woman": "women",
-}
-
 // -----------------------------------
 // ---------- PLURALIZATION ----------
 // -----------------------------------
 
 // REGEX
-var matchForEndingES     = regexp.MustCompile("\b[0-9A-Za-z_]*(ch|sh|o|[sxz])\b") // e.g. bench     -> benches
-var matchForEndingIES    = regexp.MustCompile("\b[0-9A-Za-z_]*[^aeiou](y)\b")     // e.g. city      -> cities
-var matchForEndingIStoES = regexp.MustCompile("\b[0-9A-Za-z_]*(is)\b")            // e.g. analysis  -> analyses
-var matchForEndingA      = regexp.MustCompile("\b[0-9A-Za-z_]*(on|um)\b")         // e.g. criterion -> criteria
-
-// HELPER FUNC
+var regexPluralizeIStoES = regexp.MustCompile("([0-9A-Za-z_]*)(is)$")            // e.g. analysis  -> analyses
+var regexPluralizeES     = regexp.MustCompile("([0-9A-Za-z_]*)(ch|o|sh|s|x|z)$") // e.g. bench     -> benches
+var regexPluralizeIES    = regexp.MustCompile("([0-9A-Za-z_]*[^aeiou])(y)$")     // e.g. city      -> cities
+var regexPluralizeING    = regexp.MustCompile("([0-9A-Za-z_]*)(ing)$")           // e.g. running   -> running
 
 // EXPORTED FUNC
-
 func Pluralize(w string) string {
-	// match against each regex in sequence and make changes accordingly
+	// if word is all caps, it's probably an abbreviation so make no change
+	if strings.ToUpper(w) == w {
+		return w
+	}
 
-	return ""
+	// then make string lowercase
+	w = strings.ToLower(w)
+
+	// if word is key on irregular list, return associated value
+	irregulars := irregulars("pluralize")
+	v, ok := irregulars[w]
+	if ok {
+		return v
+	}
+
+	// check against each regex
+	m := regexPluralizeIStoES.FindStringSubmatch(w)
+	if m != nil {
+		return m[1] + "es"
+	}
+
+	m = regexPluralizeES.FindStringSubmatch(w)
+	if m != nil {
+		return w + "es"
+	}
+
+	m = regexPluralizeIES.FindStringSubmatch(w)
+	if m != nil {
+		return m[1] + "ies"
+	}
+
+	m = regexPluralizeING.FindStringSubmatch(w)
+	if m != nil {
+		return w
+	}
+
+	return w + "s"
 }
 
 // -----------------------------------

@@ -1,6 +1,8 @@
 package timbre
 
-import "testing"
+import (
+	"testing"
+)
 
 // tests for snake_case and camelCase manipulation
 
