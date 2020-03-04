@@ -27,8 +27,8 @@ func Pluralize(w string) string {
 	w = strings.ToLower(w)
 
 	// if word is key on irregular list, return associated value
-	irregulars := irregulars("pluralize")
-	v, ok := irregulars[w]
+	irr := irregulars("pluralize")
+	v, ok := irr[w]
 	if ok {
 		return v
 	}
