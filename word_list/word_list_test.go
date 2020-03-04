@@ -11,7 +11,7 @@ import (
 
 // --------------------------------------------
 // -------------- WORD LIST TEST --------------
-// - (for manual inspection; not a unit word_list) -
+// - (for manual inspection; not a unit test) -
 // --------------------------------------------
 
 func TestWordList(t *testing.T) {
