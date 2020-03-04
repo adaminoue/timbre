@@ -100,8 +100,9 @@ var matchForEndingIES    = regexp.MustCompile("\b[0-9A-Za-z_]*[^aeiou](y)\b")   
 var matchForEndingIStoES = regexp.MustCompile("\b[0-9A-Za-z_]*(is)\b")            // e.g. analysis  -> analyses
 var matchForEndingA      = regexp.MustCompile("\b[0-9A-Za-z_]*(on|um)\b")         // e.g. criterion -> criteria
 
-// HELPER FUNCTIONS
-func 
+// HELPER FUNC
+
+// EXPORTED FUNC
 
 func Pluralize(w string) string {
 	// match against each regex in sequence and make changes accordingly
