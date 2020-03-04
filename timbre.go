@@ -98,7 +98,16 @@ var irregulars = map[string]string {
 var matchForEndingES     = regexp.MustCompile("\b[0-9A-Za-z_]*(ch|sh|o|[sxz])\b") // e.g. bench     -> benches
 var matchForEndingIES    = regexp.MustCompile("\b[0-9A-Za-z_]*[^aeiou](y)\b")     // e.g. city      -> cities
 var matchForEndingIStoES = regexp.MustCompile("\b[0-9A-Za-z_]*(is)\b")            // e.g. analysis  -> analyses
-var matchForEndingONtoA  = regexp.MustCompile("\b[0-9A-Za-z_]*(on)\b")            // e.g. criterion -> criteria
+var matchForEndingA      = regexp.MustCompile("\b[0-9A-Za-z_]*(on|um)\b")         // e.g. criterion -> criteria
+
+// HELPER FUNCTIONS
+func 
+
+func Pluralize(w string) string {
+	// match against each regex in sequence and make changes accordingly
+
+	return ""
+}
 
 // -----------------------------------
 // -- NAMING CONVENTION MANIPULATION -
@@ -109,13 +118,7 @@ var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 var matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
 var matchSnake    = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
 
-// FUNC
-func toSnakeCase(str string) string {
-	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
-	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
-	return strings.ToLower(snake)
-}
-
+// HELPER FUNC
 func lowerFirstChar(s string) string {
 	for index, value := range s {
 		return string(unicode.ToLower(value)) + s[index+1:]
@@ -123,7 +126,14 @@ func lowerFirstChar(s string) string {
 	return ""
 }
 
-func toCamelCase(str string, capFirstLetter bool) string {
+// EXPORTED FUNC
+func ToSnakeCase(str string) string {
+	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
+}
+
+func ToCamelCase(str string, capFirstLetter bool) string {
 	str = matchSnake.ReplaceAllStringFunc(str, func(s string) string {
 		return strings.ToUpper(strings.Replace(s,"_","",-1))
 	})

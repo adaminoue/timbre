@@ -22,7 +22,7 @@ func TestToSnakeCase(t *testing.T) {
 		{"speci0u$Intent1ons", "speci0u$_intent1ons"},
 	}
 	for _, test := range tests {
-		have := toSnakeCase(test.input)
+		have := ToSnakeCase(test.input)
 			if have != test.want {
 				t.Log("Failed on ", test.input, "which is", have, "and should be", test.want)
 				t.Fail()
@@ -46,7 +46,7 @@ func TestToCamelCaseLowerFirst(t *testing.T) {
 		{"speci0u$_intent1ons", "speci0u$Intent1ons"},
 	}
 	for _, test := range tests {
-		have := toCamelCase(test.input, false)
+		have := ToCamelCase(test.input, false)
 		if have != test.want {
 			t.Log("Failed on", test.input, "which is", have, "and should be", test.want)
 			t.Fail()
@@ -70,7 +70,7 @@ func TestToCamelCaseCapFirst(t *testing.T) {
 		{"speci0u$_intent1ons", "Speci0u$Intent1ons"},
 	}
 	for _, test := range tests {
-		have := toCamelCase(test.input, true)
+		have := ToCamelCase(test.input, true)
 		if have != test.want {
 			t.Log("Failed on", test.input, "which is", have, "and should be", test.want)
 			t.Fail()
