@@ -42,7 +42,7 @@ func Pluralize(s *string) {
 	w = strings.ToLower(w)
 
 	// if word is key on irregular list, return associated value
-	irr := irregulars("pluralize")
+	irr := Irregulars("pluralize")
 	v, ok := irr[w]
 	if ok {
 		*s = h + swapStem(v, ltr) + t

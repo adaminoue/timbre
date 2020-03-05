@@ -1,6 +1,7 @@
-package timbre
+package test
 
 import (
+	"github.com/adaminoue/timbre"
 	"testing"
 )
 
@@ -44,7 +45,7 @@ func TestPluralize(t *testing.T) {
 		{"COding", "COding"},
 	}
 	for _, test := range tests {
-		Pluralize(&test.input)
+		timbre.Pluralize(&test.input)
 		if test.input != test.want {
 			t.Log("Failed on output", test.input, "which should be", test.want)
 			t.Fail()
@@ -64,7 +65,7 @@ func TestPluralizeNth(t *testing.T) {
 		{"Raindrop keep falling on my head", 1, "Raindrop keeps falling on my head"},
 	}
 	for _, test := range passTests {
-		err := PluralizeNth(&test.input, test.nth)
+		err := timbre.PluralizeNth(&test.input, test.nth)
 		if err != nil {
 			t.Error("pluralization error (output not checked)")
 		}
@@ -77,12 +78,12 @@ func TestPluralizeNth(t *testing.T) {
 
 func TestPluralizeNthError(t *testing.T) {
 	s := "only three words"
-	err := PluralizeNth(&s, 3)
+	err := timbre.PluralizeNth(&s, 3)
 	if err == nil {
 		t.Log("Failed on intended index error (index too high)")
 		t.Fail()
 	}
-	err = PluralizeNth(&s, -1)
+	err = timbre.PluralizeNth(&s, -1)
 	if err == nil {
 		t.Log("Failed on intended index error (negative index")
 		t.Fail()
@@ -108,7 +109,7 @@ func TestToSnakeCase(t *testing.T) {
 		{"speci0u$Intent1ons", "speci0u$_intent1ons"},
 	}
 	for _, test := range tests {
-		have := ToSnakeCase(test.input)
+		have := timbre.ToSnakeCase(test.input)
 			if have != test.want {
 				t.Log("Failed on ", test.input, "which is", have, "and should be", test.want)
 				t.Fail()
@@ -132,7 +133,7 @@ func TestToCamelCaseLowerFirst(t *testing.T) {
 		{"speci0u$_intent1ons", "speci0u$Intent1ons"},
 	}
 	for _, test := range tests {
-		have := ToCamelCase(test.input, false)
+		have := timbre.ToCamelCase(test.input, false)
 		if have != test.want {
 			t.Log("Failed on", test.input, "which is", have, "and should be", test.want)
 			t.Fail()
@@ -156,7 +157,7 @@ func TestToCamelCaseCapFirst(t *testing.T) {
 		{"speci0u$_intent1ons", "Speci0u$Intent1ons"},
 	}
 	for _, test := range tests {
-		have := ToCamelCase(test.input, true)
+		have := timbre.ToCamelCase(test.input, true)
 		if have != test.want {
 			t.Log("Failed on", test.input, "which is", have, "and should be", test.want)
 			t.Fail()

@@ -2,7 +2,7 @@ package timbre
 
 // file contains all lists of irregular words, named by function
 
-func irregulars(c string) map[string]string {
+func Irregulars(c string) map[string]string {
 	if c == "pluralize" {
 		return irregularsPluralize
 	}
@@ -10,6 +10,7 @@ func irregulars(c string) map[string]string {
 	return map[string]string{}
 }
 
+// first letters of each key -> value must match or Pluralize will break
 var irregularsPluralize = map[string]string {
 	"addendum": "addenda",
 	"advice": "advice",
