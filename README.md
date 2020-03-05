@@ -15,7 +15,7 @@ Regular expressions are used throughout the project. Users are encouraged to che
 * Pluralize and singularize individual words and nth words within strings
 * Accurate and tested on the 2500 most common English language nouns (contained in `word_list.csv`)
 
-### Quirks to Know
+### Behaviour
 * Manipulates alphanumeric characters only; other characters are typically ignored (see unit test cases for examples)
 * Output is always lowercase
 
