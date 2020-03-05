@@ -31,6 +31,7 @@ Regular expressions are used throughout the project. Users are encouraged to che
     * Trims whitespace at ends of string, then runs `Pluralize` on the nth word of the input
     * Expects words to only be separated by one space only; other splits can cause unintended results
         * You can work around this; underlying split is `strings.Split(s, " ")` where `s` is input
+    * returns `nil` on success; returns an error on index-out-of-range (does not panic)
 * `Irregulars()` – Return a `map[string]string` of irregulars, with singulars as keys and plurals as values
     * Takes a string argument to match to the correct map; these keys match the related function in lowercase, e.g. `pluralize`
 
