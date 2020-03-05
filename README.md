@@ -1,6 +1,8 @@
 # Timbre Inflector
 
-__WORK IN PROGRESS: Not yet ready for use.__
+__WORK IN PROGRESS:__
+* Only exported functions are `Pluralize`, `ToSnakeCase`, `ToCamelCase`
+* Next upcoming: `Singularize`
 
 This library is a project inspired by the [Doctrine PHP inflector](https://github.com/doctrine/inflector) to improve string manipulation utility in Golang.
 
@@ -13,11 +15,12 @@ Regular expressions are used throughout the project. Users are encouraged to che
 ### Features
 * Convert between camelCase and snake_case
 * Pluralize and singularize individual words and nth words within strings
-* Accurate and tested on the 2500 most common English language nouns (contained in `word_list.csv`)
+* Accurate and tested on the 2500 most common English language nouns (contained in `word_list.csv` and viewable via `word_list_test.go`)
 
 ### Behaviour
 * Manipulates alphanumeric characters only; other characters are typically ignored (see unit test cases for examples)
-* Output is always lowercase
+* All-caps input is assumed to be an abbreviation (e.g. FBI, USA) and is left unchanged
+* Otherwise, output is always lowercase
 
 ### Testing
 * Standard `go test` suite offers complete coverage.

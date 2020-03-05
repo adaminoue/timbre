@@ -11,10 +11,11 @@ import (
 // -----------------------------------
 
 // REGEX
-var regexPluralizeIStoES = regexp.MustCompile("([0-9A-Za-z_]*)(is)$")            // e.g. analysis  -> analyses
-var regexPluralizeES     = regexp.MustCompile("([0-9A-Za-z_]*)(ch|o|sh|s|x|z)$") // e.g. bench     -> benches
-var regexPluralizeIES    = regexp.MustCompile("([0-9A-Za-z_]*[^aeiou])(y)$")     // e.g. city      -> cities
-var regexPluralizeING    = regexp.MustCompile("([0-9A-Za-z_]*)(ing)$")           // e.g. running   -> running
+var regexPluralizeIStoES = regexp.MustCompile("([0-9A-Za-z_]*)(is)$")            // e.g. analysis -> analyses
+var regexPluralizeES     = regexp.MustCompile("([0-9A-Za-z_]*)(ch|o|s|sh|x|z)$") // e.g. bench    -> benches
+var regexPluralizeIES    = regexp.MustCompile("([0-9A-Za-z_]*[^aeiou])(y)$")     // e.g. city     -> cities
+var regexPluralizeING    = regexp.MustCompile("([0-9A-Za-z_]*)(ing)$")           // e.g. running  -> running
+var regexPluralizeMEN    = regexp.MustCompile("([0-9A-Za-z_]*)(man)$")           // e.g. freshman -> freshmen
 
 // EXPORTED FUNC
 func Pluralize(w string) string {
@@ -52,6 +53,11 @@ func Pluralize(w string) string {
 	m = regexPluralizeING.FindStringSubmatch(w)
 	if m != nil {
 		return w
+	}
+
+	m = regexPluralizeMEN.FindStringSubmatch(w)
+	if m != nil {
+		return m[1] + "men"
 	}
 
 	return w + "s"

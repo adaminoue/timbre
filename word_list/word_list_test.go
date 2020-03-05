@@ -14,7 +14,7 @@ import (
 // - (for manual inspection; not a unit test) -
 // --------------------------------------------
 
-func TestWordList(t *testing.T) {
+func TestWordListPluralize(t *testing.T) {
 	csvFile, err := os.Open("./word_list.csv")
 	if err != nil {
 		t.Error("word list could not be opened")
@@ -39,6 +39,6 @@ func TestWordList(t *testing.T) {
 
 	for _, s := range bigList {
 		p := timbre.Pluralize(s)
-		println(p, "              <-", s) // TODO edit this line to coherent format
+		println(s, "->", p)
 	}
 }
