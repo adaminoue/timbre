@@ -38,7 +38,8 @@ func TestWordListPluralize(t *testing.T) {
 	}
 
 	for _, s := range bigList {
-		p := timbre.Pluralize(s)
-		println(s, "->", p)
+		input := s
+		timbre.Pluralize(&s)
+		println(input, "->", s)
 	}
 }

@@ -13,15 +13,29 @@ Regular expressions are used throughout the project. Users are encouraged to che
 ![Image of XKCD #208](https://imgs.xkcd.com/comics/regular_expressions.png)
 
 ### Features
+* Pluralize individual words and nth words within strings
+    * Accurate and tested on the ~2500 most common English language nouns (contained in `word_list.csv` and viewable via `word_list_test.go`)
 * Convert between camelCase and snake_case
-* Pluralize and singularize individual words and nth words within strings
-* Accurate and tested on the 2500 most common English language nouns (contained in `word_list.csv` and viewable via `word_list_test.go`)
+    * Simple implementations; easy to read
+* Runs in linear time relative to size of input (see [here](https://golang.org/pkg/regexp/) and [here](https://swtch.com/~rsc/regexp/regexp1.html))
 
-### Behaviour
-* Manipulates alphanumeric characters only; other characters are typically ignored (see unit test cases for examples)
-* All-caps input is assumed to be an abbreviation (e.g. FBI, USA) and is left unchanged
-* Otherwise, output is always lowercase
+### Function Behaviour
+* Pluralize() – Pluralize a single word (in place)
+    * All-caps input is assumed to be an abbreviation (e.g. FBI, USA) and is left unchanged
+    * Scoped to manipulate words containing alphanumeric characters only
+    * Leading and trailing non-alphanumeric characters are preserved (e.g. `^American` becomes `^Americans`)
+    * Capitalization is preserved (e.g. `CalTrain` becomes `CalTrains`)
+        * Exception: The overwritten portion of a word is always lowercase (e.g. `citY` becomes `cities`)
+        * Exception: For words on the [irregulars list](/irregulars.go), mid-word capitalization is not preserved (e.g. `PainTing` becomes `Paintings`)
+* PluralizeNth() – Pluralize the nth word of a string (in place)
+    * Trims whitespace at ends of string, then runs `Pluralize` on the nth word of the input
+    * Expects words to only be separated by one space only; other splits can cause unintended results
+        * You can work around this; underlying split is `strings.Split(s, " ")` where `s` is input
 
 ### Testing
-* Standard `go test` suite offers complete coverage.
-* Test suite can be used to observe results of numerous cases
+* Standard `go test` suite contained in `timbre_test.go`
+    * Tests can be examined to observe results of numerous cases
+* Use `go test word_list/word_list_test.go` to print more exhaustive list of test words
+
+### Improvements
+* If you believe a certain input is not handled correctly, please search the Issues for related discussion. If it has not been previously discussed, feel free to submit a new issue or PR.
