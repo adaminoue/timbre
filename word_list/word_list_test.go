@@ -2,11 +2,11 @@ package test
 
 import (
 	"encoding/csv"
+	"github.com/adaminoue/timbre"
 	"io"
 	"os"
 	"strings"
 	"testing"
-	"timbre"
 )
 
 // --------------------------------------------
