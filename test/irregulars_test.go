@@ -10,7 +10,7 @@ func TestIrregularsFirstLettersMatch(t *testing.T) {
 
 	for k, v := range irr {
 		if k[0] != v[0] {
-			t.Log("Irregulars", k, "and", v, "have different first letters")
+			t.Log("Irregulars", k, "and", v, "have different first letters which will break stem swap")
 			t.Fail()
 		}
 	}
